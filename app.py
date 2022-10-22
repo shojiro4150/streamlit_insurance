@@ -24,11 +24,10 @@ import pickle
 with open('lgb_best.pickle', mode='rb') as fp:
     lgb_best = pickle.load(fp)
 
-
 # アプリ
 import streamlit as st
 ## サイドパネル（インプット部）
-st.sidebar.header('Input Features')
+st.sidebar.header('契約者情報を入力してください')
 
 ### age入力（スライドバー）
 minValue_age = int(np.floor(train['age'].min()))
@@ -59,7 +58,9 @@ regionValue = st.sidebar.radio('region',('southwest', 'southeast', 'northwest', 
 
 ## メインパネル（アウトプット部）
 st.write("""
-    ### 保険料試算アプリ (機械学習)
+    ### 保険料試算アプリ 
+    ###### (LightGBMによるモデリング)
+    ######
 """)
 
 ### インプットデータ（1行のデータフレーム生成）
@@ -69,7 +70,7 @@ value_df = value_df.append(record, ignore_index=True)
 
 ## メインパネル（アウトプット部）
 st.write("""
-    #### 入力内容
+    ##### 入力内容
 """)
 st.table(value_df)
 
@@ -116,7 +117,7 @@ pred = pd.DataFrame(pred_probs).set_axis(['保険料'], axis='columns')
 ### 結果出力
 ## メインパネル（アウトプット部）
 st.write("""
-    #### 保険料 予測結果
+    ##### 保険料 予測結果
 """)
 
 st.table(pred)
