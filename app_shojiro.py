@@ -23,7 +23,6 @@ from sklearn import metrics
 from lightgbm import LGBMRegressor 
 train_x = train.drop(['charges'], axis = 1)
 train_y = train['charges']
-#train_x, test_x, train_y, test_y = holdout(x, y, test_size=0.2, random_state=0)
 
 # best_params_で表示されたパラメータを代入
 lgb_best = LGBMRegressor(
@@ -41,11 +40,10 @@ lgb_best = LGBMRegressor(
 st.cache(allow_output_mutation=True)
 lgb_best.fit(train_x, train_y)
 
-
 # アプリ
 import streamlit as st
 ## サイドパネル（インプット部）
-st.sidebar.header('Input Features')
+st.sidebar.header('契約者の情報を入力してください')
 
 ### age入力（スライドバー）
 minValue_age = int(np.floor(train['age'].min()))
@@ -76,7 +74,8 @@ regionValue = st.sidebar.radio('region',('southwest', 'southeast', 'northwest', 
 
 ## メインパネル（アウトプット部）
 st.write("""
-    ### 保険料試算アプリ
+    ### 保険料試算アプリ 
+    ###### (LightGBMによるモデリング)
 """)
 
 ### インプットデータ（1行のデータフレーム生成）
@@ -89,14 +88,6 @@ st.write("""
     #### 入力内容
 """)
 st.table(value_df)
-
-#label = LabelEncoder()
-#label.fit(value_df.sex.drop_duplicates())
-#svalue_df.sex = label.transform(value_df.sex)
-#label.fit(value_df.smoker.drop_duplicates())
-#value_df.smoker = label.transform(value_df.smoker)
-#label.fit(value_df.region.drop_duplicates())
-#value_df.region = label.transform(value_df.region)
 
 if value_df.sex[0] == "male":
     value_df.sex = 0
@@ -137,7 +128,6 @@ st.write("""
 """)
 
 st.table(pred)
-
 
 ## メインパネル（アウトプット部）
 st.write("""

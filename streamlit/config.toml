@@ -1,0 +1,6 @@
+[theme]
+primaryColor="#ff0000" # 赤
+backgroundColor="#e3f3e5" # 薄緑
+secondaryBackgroundColor="#696969" # ダークグレー
+textColor="#000000" # 黒
+font="sans serif"
