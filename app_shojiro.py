@@ -76,7 +76,7 @@ regionValue = st.sidebar.radio('region',('southwest', 'southeast', 'northwest', 
 
 ## メインパネル（アウトプット部）
 st.write("""
-    ### 保険料試算アプリ (機械学習)
+    ### 保険料試算アプリ
 """)
 
 ### インプットデータ（1行のデータフレーム生成）
