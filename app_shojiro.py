@@ -1,6 +1,7 @@
 # 基本ライブラリー
 import numpy as np
 import pandas as pd
+import streamlit as st
 # データセット
 ## データの読み込み
 train = pd.read_csv("insurance.csv")
@@ -24,6 +25,7 @@ train_x = train.drop(['charges'], axis = 1)
 train_y = train['charges']
 #train_x, test_x, train_y, test_y = holdout(x, y, test_size=0.2, random_state=0)
 
+st.cache(allow_output_mutation=True)
 # best_params_で表示されたパラメータを代入
 lgb_best = LGBMRegressor(
     boosting_type = "gbdt",
@@ -39,6 +41,7 @@ lgb_best = LGBMRegressor(
 
 # 学習
 lgb_best.fit(train_x, train_y)
+st.cache
 
 # アプリ
 import streamlit as st
